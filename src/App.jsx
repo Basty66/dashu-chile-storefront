@@ -42,6 +42,25 @@ function StarRating({ rating }) {
   )
 }
 
+function MenuIcon({ open = false }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      {open ? (
+        <>
+          <path d="M6 6 18 18" />
+          <path d="M18 6 6 18" />
+        </>
+      ) : (
+        <>
+          <path d="M4 7h16" />
+          <path d="M4 12h16" />
+          <path d="M4 17h16" />
+        </>
+      )}
+    </svg>
+  )
+}
+
 const heroStats = [
   { value: '+300', label: 'clientes satisfechos en Chile' },
   { value: '2 meses', label: 'cabello mas controlado y manejable' },
@@ -202,6 +221,7 @@ function getTimeLeft() {
 function App() {
   const [timeLeft, setTimeLeft] = useState(getTimeLeft)
   const [activeReview, setActiveReview] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [cartItems, setCartItems] = useState([
     {
       ...plans[1],
@@ -223,6 +243,17 @@ function App() {
     }, 4200)
 
     return () => window.clearInterval(reviewInterval)
+  }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 760) {
+        setMobileMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const cartCount = useMemo(
@@ -283,16 +314,38 @@ function App() {
           </div>
         </a>
 
-        <nav className="site-nav">
-          <a href="#producto">Producto</a>
-          <a href="#precios">Precios</a>
-          <a href="#resultados">Resultados</a>
-          <a href="#tomas">Tomas Morales</a>
-          <a href="#curso">Curso</a>
-          <a href="#contacto">Contacto</a>
+        <button
+          type="button"
+          className="menu-toggle"
+          aria-label={mobileMenuOpen ? 'Cerrar menu' : 'Abrir menu'}
+          aria-expanded={mobileMenuOpen}
+          onClick={() => setMobileMenuOpen((current) => !current)}
+        >
+          <MenuIcon open={mobileMenuOpen} />
+        </button>
+
+        <nav className={mobileMenuOpen ? 'site-nav site-nav--open' : 'site-nav'}>
+          <a href="#producto" onClick={() => setMobileMenuOpen(false)}>
+            Producto
+          </a>
+          <a href="#precios" onClick={() => setMobileMenuOpen(false)}>
+            Precios
+          </a>
+          <a href="#resultados" onClick={() => setMobileMenuOpen(false)}>
+            Resultados
+          </a>
+          <a href="#tomas" onClick={() => setMobileMenuOpen(false)}>
+            Tomas Morales
+          </a>
+          <a href="#curso" onClick={() => setMobileMenuOpen(false)}>
+            Curso
+          </a>
+          <a href="#contacto" onClick={() => setMobileMenuOpen(false)}>
+            Contacto
+          </a>
         </nav>
 
-        <div className="nav-tools">
+        <div className={mobileMenuOpen ? 'nav-tools nav-tools--open' : 'nav-tools'}>
           <a className="cart-pill" href="#carrito">
             <CartIcon />
             <span className="cart-pill__label">Carrito</span>

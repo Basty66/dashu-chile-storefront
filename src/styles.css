@@ -138,6 +138,29 @@ img {
   gap: 12px;
 }
 
+.menu-toggle {
+  display: none;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.menu-toggle svg {
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .nav-cta,
 .button,
 .whatsapp-float,
@@ -1783,8 +1806,6 @@ h2 {
     border-radius: 22px;
   }
 
-  .site-nav,
-  .nav-tools,
   .hero-actions,
   .hero-stats,
   .hero-meta,
@@ -1800,6 +1821,64 @@ h2 {
 
   .problem-strip {
     grid-template-columns: 1fr;
+  }
+
+  .site-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .brand {
+    min-width: 0;
+  }
+
+  .brand img,
+  .footer-brand img {
+    width: 72px;
+  }
+
+  .brand strong {
+    font-size: 0.92rem;
+  }
+
+  .brand span {
+    font-size: 0.75rem;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .site-nav,
+  .nav-tools {
+    display: none;
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 6px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .site-nav--open {
+    display: grid;
+    gap: 10px;
+  }
+
+  .site-nav--open a {
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .nav-tools--open {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 12px;
   }
 
   .countdown {
